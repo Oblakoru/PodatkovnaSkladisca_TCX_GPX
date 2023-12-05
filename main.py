@@ -1,36 +1,83 @@
-"""Convert TCX file to CSV file."""
+
 import os
-
 import pandas as pd
-
+from sport_activities_features import GPXFile
 from sport_activities_features.tcx_manipulation import TCXFile
+import tcxparser
+
 
 # Class for reading TCX files
 tcx_file = TCXFile()
 
-# Path to input TCX file
-input_file = 'path_to_original_file'
-# Path to newly created output CSV file
-output_file = 'path_to_output_file'
-
-# Read TCX file
-data = tcx_file.read_one_file(
-    input_file,
-)  # Represents data as dictionary of lists
-
-# Convert dictionary of lists to pandas DataFrame
-tcx_to_csv_df = pd.DataFrame.from_dict(data)
-
-# Set index name
-tcx_to_csv_df.index.name = 'row_id'
-
-# Save DataFrame to CSV file with semicolon as separator
-tcx_to_csv_df.to_csv(output_file, sep=';')
-
-for filename in os.listdir(folder_path):
-        file_path = os.path.join(folder_path, filename)
+data = []
+for root, dirs, files in os.walk("Test"):
+   for datoteka in files:
+        file_path = os.path.join(root, datoteka)
         if os.path.isfile(file_path):
-            print(f"Processing file: {file_path}")
-            # Do something with the file
+           try:
+
+
+               integral_metrics = tcxparser.TCXParser(file_path)
+
+
+               tipAktivnosti = integral_metrics.activity_type
+               zacetekAktivnosti = integral_metrics.started_at
+               trajanjeAktivnosti = integral_metrics.duration
+               razdaljaAktivnosti = integral_metrics.distance / 1000
+               vzponAktivnosti = integral_metrics.ascent
+               kalorijeAktivnosti = integral_metrics.calories
+               tempoAktivnosti = integral_metrics.pace
+               kadenceAvgAktivnosti = integral_metrics.cadence_avg
+               kadenceMaxAktivnosti = integral_metrics.cadence_max
+
+               data.append({
+                   'tipAktivnosti': tipAktivnosti,
+                   'zacetekAktivnosti': zacetekAktivnosti,
+                   'trajanjeAktivnosti': trajanjeAktivnosti,
+                   'razdaljaAktivnosti': razdaljaAktivnosti,
+                   'vzponAktivnosti': vzponAktivnosti,
+                   'kalorijeAktivnosti': kalorijeAktivnosti,
+                   'tempoAktivnosti': tempoAktivnosti,
+                   'kadenceAvgAktivnosti': kadenceAvgAktivnosti,
+                   'kadenceMaxAktivnosti': kadenceMaxAktivnosti
+               })
+
+
+           except:
+               print(f"Error pri {file_path}")
+
+
+   df = pd.DataFrame(data)
+   print(df)
+
+
+
+### Convert
+
+for root, dirs, files in os.walk("TestGTX"):
+   for datoteka in files:
+        file_path = os.path.join(root, datoteka)
+
+        gpx_file = GPXFile()
+        podatki = gpx_file.read_one_file(file_path)
+        for x in podatki:
+            print(x)
+        integral_metrics = gpx_file.extract_integral_metrics(file_path)
+
+        print(integral_metrics)
+        #data = gpx_file.read_one_file(file_path)
+#
+
+
+
+
+
+
+
+
+
+
+
+
 
 
