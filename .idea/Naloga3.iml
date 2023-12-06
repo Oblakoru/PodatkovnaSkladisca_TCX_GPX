@@ -5,6 +5,8 @@
       <excludeFolder url="file://$MODULE_DIR$/venv" />
       <excludeFolder url="file://$MODULE_DIR$/Test" />
       <excludeFolder url="file://$MODULE_DIR$/TestGTX" />
+      <excludeFolder url="file://$MODULE_DIR$/Sport5" />
+      <excludeFolder url="file://$MODULE_DIR$/Sport4" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
