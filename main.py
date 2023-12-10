@@ -133,35 +133,9 @@ for index, folder_name in enumerate(os.listdir("Sport5")):
 #    df_ostali.to_sql('dim_ostali', con=engine, if_exists='replace', index=False)
 
 
-   #df.to_csv('test.csv', index=False)
-
-  # print(df)
 
 
 
-### ZA GPX nevem kaj naj bi blo treba naredit?
-
-# for root, dirs, files in os.walk("TestGTX"):
-#    for datoteka in files:
-#         file_path = os.path.join(root, datoteka)
-#
-#         gpx_file = GPXFile()
-#         podatki = gpx_file.read_one_file(file_path)
-#         df = podatki.toDataFrame()
-#
-#         print(df)
-
-
-
-        # for x in podatki:
-        #     print(x)
-        # integral_metrics = gpx_file.extract_integral_metrics(file_path)
-        #
-        # print(integral_metrics)
-
-
-        #data = gpx_file.read_one_file(file_path)
-#
 
 
 
